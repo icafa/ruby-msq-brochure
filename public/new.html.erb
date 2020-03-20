@@ -1,0 +1,254 @@
+<head>
+    <link rel="stylesheet" href="/assets/css/main.css?v28">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body id="editor" ng-app="ImageEditor"> 
+  <div ng-controller="MainController" >
+
+         <nav class="navbar backgroundwhite" style="border-bottom: 1px solid #e7e7e7; z-index: 1;">
+
+                 <ul class="nav navbar-nav" style = "text-align: center;">
+
+                    <li ng-controller="TopPanelController">
+                      <a ng-click="uploadToServer();"><span class="glyphicon glyphicon-floppy-save"></span>          <br><font size = "1">Save</font></a>
+                      <img id = "loadgif" src = "<%= image_url('loading.gif') %>" style = "visibility: hidden; width:30px;height: 30px; position: absolute;left: calc(10px); top:calc(10px);">
+                    </li>
+
+                     <li class="rightborder">
+                        <a href = <%= itemdetail_brochures_url %>>
+                           <span class="glyphicon glyphicon-remove-sign"></span> <br><font size = "1">Exit</font>
+                        </a>
+                    </li>
+
+                    <li ng-controller="TopPanelController">
+                       <a id = "undo" ng-click="Undo();">
+                         <span class="glyphicon glyphicon-circle-arrow-left"></span>    <br><font size = "1">Undo&nbsp0</font>
+                       </a>
+                    </li>
+
+                    <li class="rightborder" ng-controller="TopPanelController">
+                      <a id = "redo" ng-click="Redo();">
+                        <span class="glyphicon glyphicon-circle-arrow-right"></span>   <br><font size = "1">Redo&nbsp0</font>
+                      </a>
+                    </li>
+
+                    <li ng-controller="ZoomController">
+                        <a ng-click="zoomIn();"><span class="glyphicon glyphicon-zoom-in"></span>              <br><font size = "1">Zoom&nbspin</font></a>
+                    </li>
+
+                    <li class="rightborder" ng-controller="ZoomController">
+                       <a ng-click="zoomOut();"><span class="glyphicon glyphicon-zoom-out"></span>             <br><font size = "1">Zoom&nbspout</font></a>
+                    </li>
+
+                    <li ng-controller="TopPanelController">
+                      <a ng-click="openUploadDialog($event)" ng-if="!getParam('hideOpenButton')"><span class="glyphicon glyphicon-picture"></span><br><font size = "1">Image</font></a>
+                    </li>
+
+                    <li>
+                      <a class="nav navbar-nav" onclick="ShowFontsPicker();"><span class="glyphicon glyphicon-plane"></span>                <br><font size = "1">Text</font></a>
+                    </li>
+
+                    <li class="rightborder">
+                      <a class="nav navbar-nav" onclick="ShowShapesPicker();"><span class="glyphicon glyphicon-plane"></span>                <br><font size = "1">Shapes</font></a>
+                    </li>
+
+                    <li ng-controller="TopPanelController">
+                       <a ng-click="bringForward($event);"><span class="glyphicon glyphicon-upload"></span>               <br><font size = "1">Forward</font></a>
+                    </li>
+
+                    <li ng-controller="TopPanelController">
+                       <a ng-click="sendBackward($event);"><span class="glyphicon glyphicon-download"></span>             <br><font size = "1">Backward</font></a>
+                    </li>
+
+                </ul>
+          </nav>
+
+        <div class = "row">
+
+            <div id="objects" ng-controller="ObjectsPanelController">
+
+                <div class="column col-xs-12" id="sidebar">
+
+                    <div class="side-menu">
+                        
+                          <nav class="navbar backgroundwhite" role="navigation">
+
+                            <div class="navbar-header">
+                                <div class="brand-wrapper">
+                                    <div class="brand-name-wrapper">
+                                        <a class="navbar-brand" href="#">
+                                            Elements
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="side-menu-container">
+
+                                  <ul ng-model="objects" class="nav navbar-nav">
+
+                                      <li> 
+                                          <a data-toggle="collapse" href="#rightsidebar-textboxes">
+                                             <span class="caret"></span>Text Boxes
+                                          </a> 
+                                          <div id="rightsidebar-textboxes" class="panel-collapse collapse">
+                                                <div class="panel-body" style="cursor: pointer;display: inline-block;">
+
+                                                        <div class="object panel-item" ng-repeat="object in objects"  ng-if="!object.ignore && object.type.localeCompare('i-text') == 0 ">
+
+                                                            <span ng-click="setAsActive(object)" ng-show = " xxx != 1">{{ spacify(object.name) || spacify(object.type) }} </span>
+                                                            <input ng-model="ObjectName" ng-show = " xxx == 1" ng-init = "ObjectName = object.name" type="text" ng-enter="object.name = ObjectName; xxx = 0;">
+                                                            <span ng-model = "xxx" ng-click = "xxx = 1 " ng-show = "xxx != 1"><span class="glyphicon glyphicon-pencil"></span></span>
+                                                            <span ng-click = "object.name = ObjectName; xxx = 0;" ng-show = "xxx == 1 "><span class="glyphicon glyphicon-pencil"></span></span>
+                                                           
+                                                        </div>
+
+                                                </div>
+
+                                          </div>
+
+                                      </li>
+
+                                     <li>
+
+                                          <div ng-controller="TopPanelController">
+                                             <a ng-click="openEditUploadDialog($event)">Reload</a>
+                                          </div>
+                                          <a data-toggle="collapse" href="#rightsidebar-images">
+                                             <span class="caret"></span> Images          
+                                          </a>
+                                          <div id="rightsidebar-images" class="panel-collapse collapse">
+
+                                               <div class="panel-body" style="cursor: pointer;display: inline-block;">
+
+                                                        <div class="object panel-item" ng-repeat="object in objects"  ng-if="!object.ignore && object.type.localeCompare('image')== 0 ">
+                                                            <span ng-click="setAsActive(object);" ng-show = " xxx != 1">{{ spacify(object.name) || spacify(object.type) }} </span>
+                                                            <input ng-model="ObjectName" ng-show = " xxx == 1" ng-init = "ObjectName = object.name" type="text" ng-enter="object.name = ObjectName; xxx = 0;">
+                                                            <span ng-model = "xxx" ng-click = "xxx = 1 " ng-show = "xxx != 1"><span class="glyphicon glyphicon-pencil"></span></span>
+                                                            <span ng-click = "object.name = ObjectName; xxx = 0;" ng-show = "xxx == 1 "><span class="glyphicon glyphicon-pencil"></span></span>
+                                                           
+                                                        </div>
+
+                                                </div>
+
+                                          </div>
+
+                                      </li>
+
+                                  </ul>
+
+                            </div>
+
+                          </nav>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <section id="simple-shapes" class="tab" data-index="5" ng-controller="SimpleShapesController">
+
+                <div id="shapes-list" class="actions-menu"  style="display: none;">
+                    <div class="menu-header">Pick a Shape<span class="close" onclick="HideShapesPicker();">&times;</span></div>
+                    <div class="shape" data-name="{{ shape.name }}" ng-repeat="shape in shapes.available" ng-click="shapes.addToCanvas(shape)">
+                        <div class="shape-image" id="{{ shape.name }}"><div class="css-shape"></div></div>
+                        <div class="shape-name">{{ shape.displayName || shape.name }}</div>
+                    </div>
+                </div>
+
+                <div class="actions-menu md-whiteframe-z1" ng-class="isPanelEnabled() ? 'open' : 'closed'" id= "simple-shapes-menu" style="display: none;">
+                    <div class="menu-header"><h3>{{ shapes.selected.displayName || shapes.selected.name }}</h3></div>
+
+                    <section class="actions-menu-inner" ng-style="{ 'max-height': maxPanelHeight }" ed-pretty-scrollbar ed-scroll-axis="y" ed-scroll-theme="light">
+                        <section id="object-fills">
+
+                            <div class="fill-activator">
+                                <div class="fill-activator-label">Color</div>
+                                <input ed-discrete start-color="{{ shapes.selected.options.main.fill.current }}" ng-model="shapes.selected.options.main.fill.current" ed-color-picker="shapes.applyValue('main', shapes.selected.name, 'fill', color)"  type="text"/>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+            </section> 
+
+                    <section id="text" data-index="2" class="tab" ng-controller="TextController">
+                        
+
+                        <div class="actions-menu" id= "fonts-list" style="display: none;">
+                            <div class="menu-header">Pick a Font<span class="close" onclick="HideFontsPicker();">&times;</span></div>
+                            <div class="filter-input">
+                                <md-select ng-model="filters.category" ng-change="fonts.paginator.filter(filters)" placeholder="Select a Type">
+                                    <md-option value="serif">Serif</md-option>
+                                    <md-option value="sans-serif">Sans Serif</md-option>
+                                    <md-option value="display">Display</md-option>
+                                    <md-option value="handwriting">Handwriting</md-option>
+                                    <md-option value="monospace">Monospace</md-option>
+                                </md-select>
+                            </div>
+
+                            <md-input-container class="filter-input">
+                                <label>Search</label>
+                                <input type="text" ng-model="filters.family" ng-change="fonts.paginator.filter(filters)">
+                            </md-input-container>
+                            <section class="fonts-preview" ed-pretty-scrollbar ed-scroll-axis="y" ed-scroll-theme="light">
+                                <div class="font" ng-style="{ 'font-family':  font.family }" ng-repeat="font in fonts.paginator.currentItems" ng-click="changeFont(font.family, $event)">{{ font.family }}</div>
+                            </section>
+                        </div>
+
+                        <div data-name="text" class="actions-menu wider md-whiteframe-z1" ng-class="isPanelEnabled() ? 'open' : 'closed'" id= "text-menu" style="display: none;">
+                            <div class="menu-header"><h3>Text</h3></div>
+
+                            <section class="actions-menu-inner" ng-style="{ 'max-height': maxPanelHeight }" ed-pretty-scrollbar ed-scroll-axis="y" ed-scroll-theme="light">
+
+                                <div class="md-slider">
+                                    <div class="slider-label">Font Size</div>
+                                    <md-slider aria-label="text size" step="1" ng-change="text.setProperty('fontSize', fontSize)" ng-model="fontSize" min="1" max="100"></md-slider>
+                                </div>
+                                <div class="slider-input">
+                                    <input type="number" ng-change="text.setProperty('fontSize', fontSize)" ng-model="fontSize"/>
+                                </div>
+
+                                <div class="colorpicker">
+                                    <div class="colorpicker-label"><span>Color</span></div>
+                                    <input ed-color-picker="text.setProperty('fill', color)" type="text"/>
+                                </div>
+
+                                <div class="colorpicker">
+                                    <md-checkbox class="md-checkbox" ng-model="enableBackground" ng-change="text.toggleProperty('backgroundColor', enableBackground)" aria-label="Background">Background</md-checkbox>
+                                    <input ed-color-picker="text.setProperty('backgroundColor', color)" ed-color-picker-disabled="{{ !enableBackground }}" type="text"/>
+                                </div>
+
+                            </section>
+                        </div>
+                    </section>
+
+            <section id="viewport">
+
+                <canvas ng-show="started" id="canvas"></canvas>
+
+            </section>
+
+            <div id="bottom-bar" ng-controller="ZoomController">
+                <section class="zoom-container md-whiteframe-z1">
+                    <div class="current-zoom">{{ getCurrentZoom() }}%</div>
+                    <div class="zoom-slider">
+                        <md-slider aria-label="zoom" step="1" ng-model="zoom" ng-change="doZoom()"  min="{{ minScale }}" max="{{ maxScale }}"></md-slider>
+                    </div>
+                    <div class="action-icons">
+                        <i ng-click="canvas.fitToScreen()" class="mdi mdi-filter-center-focus fit-to-screen"><md-tooltip md-delay="200">Fit to screen</md-tooltip></i>
+                        <i ng-click="canvas.zoom(1)" class="mdi mdi-fullscreen original-size"><md-tooltip md-delay="200">Original size</md-tooltip></i>
+                    </div>
+                    <div ed-ie-slider-fix></div>
+                </section>
+            </div>
+         
+            <%= render 'uploadDialogs'%>
+            
+            <script src="/assets/js/scripts.min.js?v28"></script>
+
+        </div>
+  </div>
+</body>

@@ -1,0 +1,49 @@
+<%= render 'shared/navbar' %>
+<%= render 'shared/brochuretype' %>
+    <div role="description" style="margin-left: 70px;">
+      <a href="<%= mainpage_homepage_index_url %>">Marketing</a> >
+      <%if params[:brochuretype] == 'brochure' %>
+           Brochure
+      <%elsif params[:brochuretype] == 'emailmarketing' %>
+           Email Marketing
+      <%elsif params[:brochuretype] == 'businesscard' %>
+           Businesscard
+      <%elsif params[:brochuretype] == 'postcard' %>
+           Postcard
+      <% end %>
+    </div>
+  <div style="margin-top: 20px;">
+    <div class="column col-xs-3">
+      <div class="brochure-detail-menu" style="width: 70%;margin-left: 15%;">        
+        <nav class="navbar" role="navigation">
+          <div class="gradient-content2"> 
+            SEARCH OPTIONS
+          </div>
+          <br>
+          <div style="padding-left: 20px;">
+            <form id = "possible-designs">
+              <input type="radio" name="libtype" value="design" checked> Design Library<br><br>
+              <input type="radio" name="libtype" value="save"> Saved Designs<br><br>
+              <label> Keywords</label><br><br>
+              <input type= "text" name = "keyword"><br><br>
+            </form>
+            <button class="btn ndesign-redbtn" onclick = "submitFormajax('possible-designs', '<%= brochures_area_change_brochures_url(:brochuretype => params[:brochuretype]) %>')">Search</button>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="column col-xs-9" id="sidebar">
+      <div style="float: right; margin-right: 100px;">
+        <font style="font-weight: bold;">Sort:</font>
+        <form id = "sort-designs">
+          <select name= "sorttype" form = "possible-designs" onchange="submitFormajax('possible-designs', '<%= brochures_area_change_brochures_url %>')">
+            <option value = "a-z">Title A-Z</option>
+            <option value = "z-a">Title Z-A</option>
+          </select>
+        </form>
+      </div><br>
+      <div id="brochure-contents">
+        <%= render 'entirebrochures' %>
+      </div>
+    </div>
+  </div>

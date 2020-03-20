@@ -1,0 +1,166 @@
+      <script type="application/ng-template" id="gradient-sheet-template">
+          <md-bottom-sheet class="bottom-sheet gradients-sheet">
+              <div class="items-list" ed-pretty-scrollbar>
+                  <div ng-repeat="g in shapes.gradients" ng-style="{background: 'url(assets/images/gradients/'+($index+1)+'.png)'}" ng-click="shapes.fillWithGradient($index+1)" class="item md-whiteframe-z1"></div>
+              </div>
+          </md-bottom-sheet>
+      </script>
+
+      <script type="application/ng-template" id="image-sheet-template">
+          <md-bottom-sheet class="bottom-sheet images-sheet">
+              <div class="upload-new" ng-click="showDialog($event)">
+                  <i class="mdi mdi-cloud-upload"></i>
+                  <span class="icon-label">Upload</span>
+              </div>
+              <div class="items-list" ed-pretty-scrollbar>
+                  <div ng-repeat="t in shapes.textures track by $index" ng-style="{background: 'url(assets/images/textures/'+$index+'.png)'}" ng-click="shapes.fillWithImage('assets/images/textures/'+$index+'.png')" class="item md-whiteframe-z1"></div>
+              </div>
+          </md-bottom-sheet>
+      </script>
+
+      <script type="application/ng-template" id="texture-upload-dialog-template">
+          <md-dialog class="upload-file-dialog">
+              <md-input-container>
+                  <label>Image URL</label>
+                  <input type="text" ng-model="imageBgUrl" ng-change="shapes.fillWithImage(imageBgUrl)" ng-model-options="{ debounce: 500 }">
+              </md-input-container>
+
+              <h2><span>OR</span></h2>
+
+              <label class="pretty-upload">
+                  <input type="file" ed-file-uploader="shapes.fillWithImage" ed-close-after/>
+                  <i class="mdi mdi-cloud-upload"></i>
+                  <span class="upload-button-label">Upload From Computer</span>
+              </label>
+          </md-dialog>
+      </script>
+      
+      <script type="application/ng-template" id="save-image-dialog">
+          <md-dialog class="upload-file-dialog save-dialog">
+              <md-input-container>
+                  <label>File Name</label>
+                  <input type="text" ng-model="imageName">
+              </md-input-container>
+
+              <md-radio-group ng-model="imageType">
+                  <md-radio-button value="jpeg">JPEG</md-radio-button>
+                  <md-radio-button value="png">PNG</md-radio-button>
+                  <md-radio-button value="json">JSON</md-radio-button>
+              </md-radio-group>
+
+              <div ng-if="imageType === 'jpeg'">
+                  <div class="slider-label">Quality {{ imageQuality }}</div>
+                  <md-slider aria-label="Angle" md-discrete ng-model="imageQuality" step="1" min="1" max="10" ></md-slider>
+              </div>
+
+              <p ng-if="imageType === 'json'">This will save a file with current model editor state so you can load it into model later.</p>
+
+              <md-button ng-click="saveImage($event)" class="md-raised md-primary">Save</md-button>
+
+              <div class="demo-alert" ng-if="isDemo">Image saving is disabled on demo site.</div>
+          </md-dialog>
+      </script>
+
+
+      <script type="application/ng-template" id="main-image-upload-dialog-template">
+          <md-dialog class="upload-file-dialog">
+              <div ng-show="openImageMode === 'open'">
+                  <md-input-container>
+                      <label>Image URL</label>
+                      <input type="text" ng-model="openImageUrl" ng-change="showImagePreview(openImageUrl)" ng-model-options="{ debounce: 500 }">
+                  </md-input-container>
+
+                  <h2><span>OR</span></h2>
+
+                  <label class="pretty-upload">
+                      <input type="file" ed-file-uploader="showImagePreview"/>
+                      <i class="mdi mdi-cloud-upload"></i>
+                      <span class="upload-button-label">Upload From Computer</span>
+                  </label>
+
+                  <h2><span>OR</span></h2>
+
+                  <div class="buttons" ng-show="!canOpenImage">
+                      <md-button ng-click="openImageMode = 'create'" class="md-primary">Create New</md-button>
+                      <md-button ng-click="openSampleImage()">Sample</md-button>
+                  </div>
+
+                  <div ng-show="canOpenImage">
+                      <div class="img-preview"></div>
+
+                      <div class="buttons">
+                          <md-button ng-click="openImage()" class="md-primary md-raised">Open</md-button>
+                          <md-button ng-click="closeUploadDialog()" class="md-raised">Close</md-button>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="new-canvas" ng-show="openImageMode === 'create'">
+                  <md-input-container>
+                      <label>Width</label>
+                      <input min="1" max="5000" type="number" ng-model="canvasWidth">
+                  </md-input-container>
+
+                  <md-input-container>
+                      <label>Height</label>
+                      <input min="1" max="5000" type="number" ng-model="canvasHeight">
+                  </md-input-container>
+
+                  <div class="buttons">
+                      <md-button ng-click="openImageMode = 'open'" class="md-raised">Cancel</md-button>
+                      <md-button ng-click="createNewCanvas(canvasWidth, canvasHeight)" class="md-primary md-raised">Create</md-button>
+                  </div>
+              </div>
+          </md-dialog>
+      </script>
+      <script type="application/ng-template" id="edit-image-upload-dialog-template">
+          <md-dialog class="upload-file-dialog">
+              <div ng-show="openImageMode === 'open'">
+                  <md-input-container>
+                      <label>Image URL</label>
+                      <input type="text" ng-model="openImageUrl" ng-change="showImagePreview(openImageUrl)" ng-model-options="{ debounce: 500 }">
+                  </md-input-container>
+
+                  <h2><span>OR</span></h2>
+
+                  <label class="pretty-upload">
+                      <input type="file" ed-file-uploader="showImagePreview"/>
+                      <i class="mdi mdi-cloud-upload"></i>
+                      <span class="upload-button-label">Upload From Computer</span>
+                  </label>
+
+                  <h2><span>OR</span></h2>
+
+                  <div class="buttons" ng-show="!canOpenImage">
+                      <md-button ng-click="openImageMode = 'create'" class="md-primary">Create New</md-button>
+                      <md-button ng-click="openSampleImage()">Sample</md-button>
+                  </div>
+
+                  <div ng-show="canOpenImage">
+                      <div class="img-preview"></div>
+
+                      <div class="buttons">
+                          <md-button ng-click="editImage()" class="md-primary md-raised">Open</md-button>
+                          <md-button ng-click="closeUploadDialog()" class="md-raised">Close</md-button>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="new-canvas" ng-show="openImageMode === 'create'">
+                  <md-input-container>
+                      <label>Width</label>
+                      <input min="1" max="5000" type="number" ng-model="canvasWidth">
+                  </md-input-container>
+
+                  <md-input-container>
+                      <label>Height</label>
+                      <input min="1" max="5000" type="number" ng-model="canvasHeight">
+                  </md-input-container>
+
+                  <div class="buttons">
+                      <md-button ng-click="openImageMode = 'open'" class="md-raised">Cancel</md-button>
+                      <md-button ng-click="createNewCanvas(canvasWidth, canvasHeight)" class="md-primary md-raised">Create</md-button>
+                  </div>
+              </div>
+          </md-dialog>
+      </script>

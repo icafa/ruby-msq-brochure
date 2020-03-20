@@ -1,0 +1,3 @@
+class Brochure < ApplicationRecord
+
+end

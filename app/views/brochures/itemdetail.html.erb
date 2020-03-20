@@ -1,0 +1,51 @@
+<%= render 'shared/navbar' %>
+<%= render 'shared/brochuretype' %>
+<div class="paddingleft5per">
+    <a href="<%= mainpage_homepage_index_url %>" >Marketing</a> >
+    <a href="<%= property_brochures_url(:brochuretype => params[:brochuretype]) %>" >
+      <%if params[:brochuretype] == 'brochure' %>
+           Brochure
+      <%elsif params[:brochuretype] == 'emailmarketing' %>
+           Email Marketing
+      <%elsif params[:brochuretype] == 'businesscard' %>
+           Businesscard
+      <%elsif params[:brochuretype] == 'postcard' %>
+           Postcard
+      <% end %>
+    </a> >
+    Elegant Red Brochure
+</div>
+<div class= "row">
+  <div align="center" class="paddingleft5per" style="float: left;">
+   <div class="panel-heading">
+      <div class = "portimg">
+        <img src = "<%= @brochure.preimage %>" onload="resizeImg_brochure_datail(this,500.0)">
+      </div>
+    </div> 
+  </div>
+  <div class="panel-heading paddingleft5per" style="float:left;">
+    <div class="brochure-detail-menu">
+      <nav class="navbar" role="navigation">
+        <div id = "brochure-name" class="gradient-content2">
+          Elegant Red-brochure
+        </div>
+        <div id = "brochure-description" style="padding-left: 20px; padding-top: 10px;padding-bottom: 20px;">
+          Flyers | Library Design</br>
+          <font size="2px" style="color: rgb(100,100,100);" >17" x 11"</font></br>
+          <b>Brochure Elegant</b></br>
+          <font size="1px" style="color: rgb(100,100,100);" > Keywords: home, just listed, just sold, luxury, open house, print, property, property marketing</font><br></br>
+          <button id="myBtn2017" class="btn btn-danger" style="background-color: rgb(182,0,0);font-weight: bold;">Personalize</button><br>
+          <a href = "<%= '/uploads/brochure/src/' + @brochure.id.to_s + '/experiment.pdf'%>"> view PDF </a>
+          <br><br><br>
+          <b>Order Professional Printing</b><br><br>
+          <font size="2px">Professional Print Services starting at 1.54ea</font></br>
+        </div>
+      </nav>
+    </div>
+ </div>
+</div>
+<div id="myModal2017" class="modal2017">
+  <div class="modal2017-content">
+    <%= render 'new' %>
+  </div>
+</div>

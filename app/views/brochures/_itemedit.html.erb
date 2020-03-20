@@ -1,0 +1,147 @@
+<head>
+    <style type="text/css">[ng-cloak]#splash{display:block!important}[ng-cloak]{display:none}#splash{display:none;position:absolute;top:45%;left:50%;width:6em;height:6em;overflow:hidden;border-radius:100%;z-index:0}@-webkit-keyframes fade{from{opacity:1}to{opacity:.2}}@keyframes fade{from{opacity:1}to{opacity:.2}}@-webkit-keyframes rotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}#splash::after,#splash::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%}#splash::before{background:linear-gradient(to right,green,#ff0);-webkit-animation:rotate 2.5s linear infinite;animation:rotate 2.5s linear infinite}#splash::after{background:linear-gradient(to bottom,red,#00f);-webkit-animation:fade 2s infinite alternate,rotate 2.5s linear reverse infinite;animation:fade 2s infinite alternate,rotate 2.5s linear reverse infinite}#splash-spinner{position:absolute;width:100%;height:100%;z-index:1;border-radius:100%;box-sizing:border-box;border-left:.5em solid transparent;border-right:.5em solid transparent;border-bottom:.5em solid rgba(255,255,255,.3);border-top:.5em solid rgba(255,255,255,.3);-webkit-animation:rotate .8s linear infinite;animation:rotate .8s linear infinite}
+    </style>
+    <link rel="stylesheet" href="/assets/css/main.css?v28">
+</head>
+
+<body id="editor" ng-app="ImageEditor" style="background-color: white;"> 
+  <div ng-controller="MainController" >
+
+         <div class="navbar" style="border-bottom: 1px solid #e7e7e7; z-index: 1; background-color: white;">
+
+                 <ul class="nav navbar-nav" style = "text-align: center;">
+
+                    <li ng-controller="TopPanelController">
+                      <a ng-click="openSaveDialog($event)"><span class="glyphicon glyphicon-floppy-save"></span>          <br><font size = "1">Save</font></a>
+                    </li>
+
+                     <li style="border-right: 1px solid #e7e7e7">
+                        <a onclick="hideModal();">
+                           <span class="glyphicon glyphicon-remove-sign"></span> <br><font size = "1">Exit</font>
+                        </a>
+                    </li>
+
+                    <li><a href="#"><span class="glyphicon glyphicon-circle-arrow-left"></span>    <br><font size = "1">Undo&nbsp0</font></a></li>
+
+                    <li style="border-right: 1px solid #e7e7e7"><a href="#">
+                    <span class="glyphicon glyphicon-circle-arrow-right"></span>   <br><font size = "1">Redo&nbsp0</font>
+                    </a></li>
+
+                    <li><a href="#"><span class="glyphicon glyphicon-zoom-in"></span>              <br><font size = "1">Zoom&nbspin</font></a></li>
+
+                    <li style="border-right: 1px solid #e7e7e7"><a href="#"><span class="glyphicon glyphicon-zoom-out"></span>             <br><font size = "1">Zoom&nbspout</font></a></li>
+
+                    <li ng-controller="TopPanelController">
+                      <a ng-click="openUploadDialog($event)" ng-if="!getParam('hideOpenButton')"><span class="glyphicon glyphicon-picture"></span><br><font size = "1">Image</font></a>
+                    </li>
+
+                     <li ng-controller="TextController">
+                      <a ng-click="changeFont(null, $event)"><span class="glyphicon glyphicon-list-alt"></span> <br><font size = "1">Text</font></a>
+                    </li>
+
+                    <li ng-controller="SimpleShapesController" style="border-right: 1px solid #e7e7e7">
+                      <a ng-click="shapes.addToCanvas(shapes.available[0])"><span class="glyphicon glyphicon-plane"></span>                <br><font size = "1">Shapes</font></a>
+                    </li>
+
+                    <li><a href="#"><span class="glyphicon glyphicon-upload"></span>               <br><font size = "1">Forward</font></a></li>
+
+                    <li><a href="#"><span class="glyphicon glyphicon-download"></span>             <br><font size = "1">Backward</font></a></li>
+
+                </ul>
+          </div>
+
+        <div class = "row">
+
+            <div id="objects" ng-controller="ObjectsPanelController">
+
+                <div class="column col-xs-12" id="sidebar">
+
+                    <div class="side-menu">
+                        
+                          <nav class="navbar" style="background-color: white;" role="navigation">
+
+                            <div class="navbar-header">
+                                <div class="brand-wrapper">
+                                    <div class="brand-name-wrapper">
+                                        <a class="navbar-brand" href="#">
+                                            Elements
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="side-menu-container">
+
+                                  <ul ng-model="objects" class="nav navbar-nav">
+
+                                      <li> 
+                                          <a data-toggle="collapse" href="#rightsidebar-textboxes">
+                                             <span class="caret"></span>Text Boxes
+                                          </a> 
+                                          <div id="rightsidebar-textboxes" class="panel-collapse collapse">
+                                                <div class="panel-body" style="cursor: pointer;display: inline-block;">
+
+                                                        <div class="object panel-item" ng-repeat="object in objects"  ng-if="!object.ignore && object.type.localeCompare('i-text') == 0 ">
+
+                                                            <span ng-click="setAsActive(object)" ng-show = " xxx != 1">{{ spacify(object.name) || spacify(object.type) }} </span>
+                                                            <input ng-model="ObjectName" ng-show = " xxx == 1" ng-init = "ObjectName = object.name" type="text" ng-enter="object.name = ObjectName; xxx = 0;">
+                                                            <span ng-model = "xxx" ng-click = "xxx = 1 " ng-show = "xxx != 1"><span class="glyphicon glyphicon-pencil"></span></span>
+                                                            <span ng-click = "object.name = ObjectName; xxx = 0;" ng-show = "xxx == 1 "><span class="glyphicon glyphicon-pencil"></span></span>
+                                                           
+                                                        </div>
+
+                                                </div>
+
+                                          </div>
+
+                                      </li>
+
+                                     <li>
+                                          <a data-toggle="collapse" href="#rightsidebar-images">
+                                             <span class="caret"></span> Images          
+                                          </a>
+                                          <div id="rightsidebar-images" class="panel-collapse collapse">
+
+                                               <div class="panel-body" style="cursor: pointer;display: inline-block;">
+
+                                                        <div class="object panel-item" ng-repeat="object in objects"  ng-if="!object.ignore && object.type.localeCompare('image')== 0 ">
+
+                                                            <span ng-click="setAsActive(object)" ng-show = " xxx != 1">{{ spacify(object.name) || spacify(object.type) }} </span>
+                                                            <input ng-model="ObjectName" ng-show = " xxx == 1" ng-init = "ObjectName = object.name" type="text" ng-enter="object.name = ObjectName; xxx = 0;">
+                                                            <span ng-model = "xxx" ng-click = "xxx = 1 " ng-show = "xxx != 1"><span class="glyphicon glyphicon-pencil"></span></span>
+                                                            <span ng-click = "object.name = ObjectName; xxx = 0;" ng-show = "xxx == 1 "><span class="glyphicon glyphicon-pencil"></span></span>
+                                                           
+                                                        </div>
+
+                                                </div>
+
+                                          </div>
+
+                                      </li>
+
+                                  </ul>
+
+                            </div>
+
+                          </nav>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <section id="viewport">
+
+                <canvas ng-show="started" id="canvas"></canvas>
+
+            </section>
+
+         
+            <%= render 'uploadDialogs'%>
+            
+            <script src="/assets/js/scripts.min.js?v28"></script>
+
+        </div>
+  </div>
+</body>

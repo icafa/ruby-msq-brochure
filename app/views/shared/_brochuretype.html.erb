@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default">
+     <ul class="nav navbar-nav" style = "text-align: center;" >
+        <% if params[:brochuretype] == "businesscard" %>
+          <li class="active"> <a href= <%= property_brochures_url(:brochuretype => "businesscard") %> >Business Card</font></a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "emailmarketing")%> >Email Marketing</a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "postcard") %> >PostCard</a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "brochure") %> >Property Brochure</a></li>
+        <%elsif params[:brochuretype] == "postcard"%>
+          <li><a href= <%= property_brochures_url(:brochuretype => "businesscard") %> >Business Card</font></a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "emailmarketing")%> >Email Marketing</a></li>
+          <li class="active"><a href= <%= property_brochures_url(:brochuretype => "postcard") %> >PostCard</a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "brochure") %> >Property Brochure</a></li>
+        <%elsif params[:brochuretype] == "brochure"%>
+          <li><a href= <%= property_brochures_url(:brochuretype => "businesscard") %> >Business Card</font></a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "emailmarketing")%> >Email Marketing</a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "postcard") %> >PostCard</a></li>
+          <li class="active"><a href= <%= property_brochures_url(:brochuretype => "brochure") %> >Property Brochure</a></li>
+        <%elsif params[:brochuretype] == "emailmarketing"%>
+          <li><a href= <%= property_brochures_url(:brochuretype => "businesscard") %> >Business Card</font></a></li>
+          <li class="active"><a href= <%= property_brochures_url(:brochuretype => "emailmarketing")%> >Email Marketing</a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "postcard") %> >PostCard</a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "brochure") %> >Property Brochure</a></li>
+        <%else%>
+          <li><a href= <%= property_brochures_url(:brochuretype => "businesscard") %> >Business Card</font></a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "emailmarketing")%> >Email Marketing</a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "postcard") %> >PostCard</a></li>
+          <li><a href= <%= property_brochures_url(:brochuretype => "brochure") %> >Property Brochure</a></li>
+        <% end %>
+    </ul> 
+</nav>

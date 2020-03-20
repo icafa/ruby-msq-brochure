@@ -1,0 +1,23 @@
+<div>
+  <div style="background-color: rgb(83,83,83); width:100%;">
+    <a href = <%= mainpage_homepage_index_url %> >
+       <img class="cover-image" src="<%= image_url('headbar1.jpg') %>">
+    </a>
+    <% if current_user.present? %>
+      <div  style = "text-align: right; position: absolute;top:40px;right: 40px; ">
+        <font size = "2" color="white">Hi, Akira <span class="caret"></span></font>
+      </div>
+      <img class="cover-image" style ="height:35px;width:25px;position: absolute;top:25px;right: 10px;" src="<%= image_url('userphoto.jpg') %>">
+      <div style = "text-align: right; position: absolute;top:40px;right: 140px; ">
+          <%= link_to 'LOG OUT', destroy_user_session_path, method: :delete %>
+      </div>
+    <% else %>
+        <div  style = "text-align: right; position: absolute;top:40px;right: 40px; ">
+          <%= link_to 'SIGN UP', new_user_registration_path %>
+        </div>
+        <div style = "text-align: right; position: absolute;top:40px;right: 140px; ">
+          <%= link_to 'LOG IN', new_user_session_path %>
+        </div>
+    <% end %>
+  </div>
+</div>

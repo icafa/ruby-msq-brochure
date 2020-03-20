@@ -1,0 +1,104 @@
+
+.brochure-detail-menu {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(243,243,243);
+  border-radius: 4px;
+  border: 1px solid #e7e7e7;
+}
+.brochure-detail-menu .navbar {
+  border: none;
+}
+.brochure-detail-menu .navbar-header {
+  width: 100%;
+  border-bottom: 1px solid #e7e7e7;
+}
+.brochure-detail-menu .navbar-nav .active a {
+  background-color: transparent;
+  margin-right: -1px;
+  border-right: 5px solid #e7e7e7;
+}
+
+.brochure-detail-menu #dropdown {
+  border: 0;
+  margin-bottom: 0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+.brochure-detail-menu #dropdown .caret {
+  float: right;
+  margin: 9px 5px 0;
+}
+.brochure-detail-menu #dropdown .indicator {
+  float: right;
+}
+.brochure-detail-menu #dropdown > a {
+  border-bottom: 1px solid #e7e7e7;
+}
+.brochure-detail-menu #dropdown .panel-body {
+  padding: 0;
+  background-color: #f3f3f3;
+}
+.brochure-detail-menu #dropdown .panel-body .navbar-nav {
+  width: 100%;
+}
+
+.brochure-detail-menu #dropdown .panel-body .panel > a {
+  margin-left: -20px;
+  padding-left: 35px;
+}
+.brochure-detail-menu #dropdown .panel-body .panel-body {
+  margin-left: -15px;
+}
+
+.brochure-detail-menu #search-trigger {
+  background-color: #f3f3f3;
+  border: 0;
+  border-radius: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px 18px;
+}
+.brochure-detail-menu .brand-name-wrapper {
+  min-height: 50px;
+}
+.brochure-detail-menu .brand-name-wrapper .navbar-brand {
+  display: block;
+}
+.brochure-detail-menu #search {
+  position: relative;
+  z-index: 1000;
+}
+.brochure-detail-menu #search .panel-body {
+  padding: 0;
+}
+.brochure-detail-menu #search .panel-body .navbar-form {
+  padding: 0;
+  padding-right: 50px;
+  width: 100%;
+  margin: 0;
+  position: relative;
+  border-top: 1px solid #e7e7e7;
+}
+.brochure-detail-menu #search .panel-body .navbar-form .form-group {
+  width: 100%;
+  position: relative;
+}
+.brochure-detail-menu #search .panel-body .navbar-form input {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+  height: 50px;
+}
+.brochure-detail-menu #search .panel-body .navbar-form .btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: #f3f3f3;
+  padding: 15px 18px;
+}

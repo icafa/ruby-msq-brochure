@@ -1,0 +1,23 @@
+<div >
+  <font size = "4" style = "font-family: thin;">  Choose a Design </font><br>
+  <font size = "2"><b> <%= @entirebrochures.size %> Results Found </b></font>
+</div>
+<% @entirebrochures.each do |brochure| %>
+  <div align="center" style="float: left;">
+    <div class="panel-heading">
+       <div class = "portimg-mobile">
+         <a  onclick = "setTimeout(
+         function(){
+          window.location.reload();
+          window.location.href = '<%=itemdetail_brochures_url(:id => brochure.id, :brochuretype => params[:brochuretype]) %>'
+          },30);" style = "cursor:pointer;">
+           <% puts brochure.preimage %>
+           <img style = "visibility: hidden;" src = "<%= brochure.preimage %>" onload="resizeImg_brochure(this,150.0)">
+         </a>
+       </div>
+       <div class = "col">
+         <%= brochure.name %>
+       </div>
+    </div> 
+  </div>
+<% end %>

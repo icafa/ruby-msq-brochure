@@ -1,0 +1,56 @@
+.gradient-content2{
+  padding-left: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 2px;
+  border-bottom: 1px solid #e7e7e7;
+  font-size:20px;
+  font-family:thin;
+  user-select: none;
+  background-image: linear-gradient(0deg, rgb(255,255,255), rgb(237,237,237));
+}
+.portimg{
+  width:500px;
+  height:500px;
+  position:relative;
+  overflow:hidden;
+}
+.portimg-mobile{
+    width:150px;
+    height:150px;
+    position:relative;
+    overflow:hidden;
+}
+input[type=radio]:checked{
+  border-radius: 3px;
+  border: 2px solid blue;
+}
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+.carousel-indicators li {
+  background-color: rgba(70,70,70,.8);
+}
+
+.carousel-indicators .active {
+  background-color: rgba(4,121,191,.8);
+}
+.rightborder{
+  border-right: 1px solid #e7e7e7;
+}
+.backgroundwhite{
+  background-color: white;
+}
+.paddingleft5per{
+  padding-left: 5%;
+}
+.ndesign-redbtn{
+  background-color: rgb(182,0,0);
+  font-weight: bold;
+  color: white;
+}
+.disabled { 
+  text-decoration:none;
+  color:#bbb; 
+  pointer-events: none;
+}

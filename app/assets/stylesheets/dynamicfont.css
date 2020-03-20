@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'us101';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/brochure/extensions/fonts/custom/us101-webfont.ttf);
+}
+@font-face {
+  font-family: 'league_gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/brochure/extensions/fonts/custom/league_gothic-webfont.ttf);
+}
+@font-face {
+  font-family: 'Century Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/brochure/extensions/fonts/custom/century_gothic-webfont.ttf);
+}

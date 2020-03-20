@@ -1,0 +1,116 @@
+<%= render 'shared/navbar' %>
+<%= render 'shared/brochuretype' %>
+
+  <div class="column col-xs-3" style="margin-right: 5%;">
+    <div class="side-menu" style="width: 200px;">   
+      <nav class="navbar" role="navigation">
+        <div style="margin-top: 10px;">
+            Design Library
+        </div>
+        <div class="side-menu-container">
+            &nbsp<br>
+            <a href= <%= property_brochures_url(:libtype => "save", :brochuretype =>"all")%> >Saved Designs</a><br>
+            <a href= <%= property_brochures_url(:brochuretype => "emailmarketing")%> >Email Marketing</a><br>
+            <a href="#">Print Marketing</a><br>
+        </div>
+        <div style="margin-top: 10px;">
+            Guiding & FAQs
+        </div>
+        <div class="side-menu-container">
+            &nbsp<br>
+            <a href="#">Pricing Guide for Print</a><br>
+            <a href="#">Pricing FAQ</a><br>
+            <a href="#">Shopping Cart FAQ</a><br>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+
+  <div class="column col-xs-8" id="sidebar">
+      <div style = "border-bottom: 1px solid #e7e7e7;text-align: center;padding-bottom: 30px;">
+          <div role="title">
+             <h3>Marketing Center</h3>
+          </div>
+          <div role="description" style="padding-top: 20px;">
+             Keep in touch with customizable marketing templates and campains
+          </div>
+      </div>
+      <div style="text-align: center;margin-top: 20px;">
+        <a href="#">EMAIL MARKETING</a>&nbsp&nbsp&nbsp&nbsp<a href="#">PRINT MARKETING</a><br>
+      </div>
+
+
+      <!-- Carousel
+      ================================================== -->
+      <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+                  <div class= "row" style="padding-bottom: 50px;">
+                         <div class="column" style="float: left;padding-left: 20%; ">
+                           <div class="panel-heading">
+                              <div class = "portimg-mobile">
+                                <img src = "<%= image_url('mainpage-represent.jpg')%>" onload="resizeImg_brochure(this,150.0)">
+                              </div>
+                           </div> 
+                        </div>
+                        <div class = "column" style = "padding-left: 50%;padding-right: 20%;">
+                         <div class="panel-heading" >
+                           <div calss = "container">
+                              <div role="title">
+                                <font style="color: rgb(63,69,125);">Personalize Greetings</font>
+                              </div>
+                              <div role="description" style="margin-top: 10px;">
+                                <font size = "2">
+                                  Strong connections with your past clients can be created with personalized and timely greetings. Anytime you need to reach out with a special message, use eEdge's eCards to stay in touch.<br><br>
+                                </font>
+                                <button class="btn btn-danger" style="background-color: rgb(182,0,0);">Browse Email Greetings</button>
+                              </div>
+                           </div>
+                         </div>
+                        </div>
+                  </div>
+          </div>
+          <div class="item">
+                  <div class= "row" style="padding-bottom: 50px;">
+                         <div class="column" style="float: left;padding-left: 20%; ">
+                           <div class="panel-heading">
+                              <div class = "portimg-mobile">
+                                <img src = "<%= image_url('mainpage-represent.jpg') %>" onload="resizeImg_brochure(this,150.0)">
+                              </div>
+                           </div> 
+                        </div>
+                        <div class = "column" style = "padding-left: 50%;padding-right: 20%;">
+                         <div class="panel-heading" >
+                           <div calss = "container">
+                              <div role="title">
+                                <font style="color: rgb(63,69,125);">Personalize Greetings</font>
+                              </div>
+                              <div role="description" style="margin-top: 10px;">
+                                <font size = "2">
+                                  Strong connections with your past clients can be created with personalized and timely greetings. Anytime you need to reach out with a special message, use eEdge's eCards to stay in touch.<br><br>
+                                </font>
+                                <button class="btn ndesign-redbtn">Browse Email Greetings</button>
+                              </div>
+                           </div>
+                         </div>
+                        </div>
+                  </div>
+          </div>
+        </div>
+
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+      </div><!-- /.carousel -->
+
+
+  </div>
